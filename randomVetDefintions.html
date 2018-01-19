@@ -1,0 +1,148 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Random Quotes</title>
+	<style>
+		* {
+			padding: 5px;
+			margin: 5px;
+			font-family: monospace;
+			font-style: oblique;
+			font-size: 18px;
+		}
+		
+		body {
+			background: url(bg.jpg);
+			background-repeat: no-repeat;
+			background-size: cover;
+		}
+
+		div {
+			/*background-color: #038177;*/
+			border-radius: 10px;
+		}
+
+		input, p {
+			border-radius: 10px;
+		}
+		
+		.main_content, em {
+			font-weight: bold;
+		}
+
+		.main_content {
+			color: #345;
+		}
+
+		img { 
+		width: 200px;
+		height: 200px;
+		border-radius: 20px;
+		 }
+
+	</style>
+</head>
+<body>
+<div class="container-fluid">
+	<div>
+		<input id="newQuote" type="button" name="newQuote" value="Show Disease">
+	</div>
+	<div class="row">
+		<div class="top">
+			"Common Poultry Diseases"
+		</div>
+		<div class="main">
+			<p class="main_content">A poultry disease with associated symtoms will be displayed randomly when the button is clicked!</p>
+		</div>
+		<div class="footer">
+			<div class="images"></div>
+			<div class="footer_content">
+			</div>
+		</div>
+	</div>
+</div>
+
+<script>
+
+var diseases = ['Velogenic viscerotropic Newcastle Disease (VVND)', 
+				'Highly Pathogenic Avian Influenza (HPAI)', 
+				'Duck viral enteritis (duck plague)', 
+				'Pigeon Paramyxovirus (PPMV)', 
+				'Infectious Laryngotracheitis (ILTV)', 
+				'Infectious bronchitis virus', 
+				'Marek’s Disease', 
+				'Infectious bursal disease',
+				'Avian Encephalomye-litis', 
+				'Fowl Pox', 
+				'Fowl cholera', 
+				'Mycoplasmosis'];
+
+var symptoms = [ 'Sudden mortality, often with few or minimal signs Nervous Balance  walking problems, twisted necks Respiratory: gasping, difficulty breathing, 				swelling of the head Digestive: diarrhea Reproductive: decreased egg numbers', 
+				'Sudden mortality, often with few or no signs Respiratory: gasping, swelling of wattles & combs Nervous: tremors of the head and neck Digestive: diarrhea, thirst Reproductive: soft-shelled or shell-less eggs, decreased egg numbers', 
+				'Sudden mortality, often with few or no signs Digestive: watery diarrhea, decreased appetite, thirst Reproductive: decreased egg numbers Nervous: difficulty walking, tremors Respiratory: pasted eyelids, nasal discharge',
+ 				'Sudden mortality, often with few or no signs Digestive: watery diarrhea, decreased appetite, thirst Reproductive: decreased egg numbers Nervous: difficulty walking, tremors Respiratory: pasted eyelids, nasal discharge', 
+ 				'Respiratory: nasal discharge, difficulty breathing, coughing, bloody mucus Reproductive: decreased egg numbers', 
+ 				'Birds may be depressed with ruffled feathers. Respiratory: gasping, coughing, sneezing, wet eyes Reproductive: thin-shelled, rough and misshapen eggs, decreased egg numbers', 
+				'Unthriftiness, failure to gain weight. Nervous: paralyzed in one or both legs or wings, difficulty standing. Pale eyes.', 
+ 				'Prostration and death Digestive: vent picking, soiled vent feathers, whitish or watery diarrhea', 
+ 				'Nervous: difficulty walking, paralysis, tremors', 
+ 				'Poor weight gain. Skin: scabby, raised pocks on the face Digestive: Loss of appetite Respiratory: nasal discharge, difficulty breathing', 
+ 				'Death may be the first sign of disease. Respiratory: Gasping, difficulty breathing Digestive: diarrhea, especially in ducks', 
+ 				'Respiratory: Facial swelling, nasal discharge, coughing, foamy eyes Reproductive: Decreased egg numbers, decreased hatchability Skeletal: joint swelling'];
+
+var control = ['Vaccination, biosecurity', 'Biosecurity, depopulation, (vaccination)', 'Biosecurity, (vaccination)', 'Vaccination, biosecurity', 'Vaccination, 				biosecurity', 'Vaccination, medication for secondary bacteria', 'Vaccination', 'Vaccination, biosecurity', 'Vaccination', 'Vaccination, biosecurity				', 'Medication, remove reservoirs, vaccination', 'Vaccination, biosecurity'];
+
+var colorList= ["palegreen", "SlateBlue", "orange", "silver", "DodgerBlue", "metalred", "Teal", "Tomato", "Orange", "MediumSeaGreen", "Violet", "Gray"];
+
+var content = document.querySelector('.footer_content');
+var footerImages = document.querySelector('.images');
+
+	content.textContent = '';
+
+var randomListArray =[];
+
+	function changeQuote(){
+
+		// content.innerHTML = '';
+		footerImages.innerHTML = '';
+
+		if(diseases.length > 0){
+
+		var randomNumber = Math.floor((Math.random() * diseases.length)  );
+		var quote = '<em>' + diseases[randomNumber] + ':</em><p><em>' + 'Signs & symptoms: </em>' + symptoms[randomNumber] + '.</p><p><em>Control: </em>' + control[randomNumber] + '.</p>';
+
+		randomListArray.push(randomNumber + 1);
+
+		console.log(quote);
+		console.log(randomNumber);
+		// console.log(randomListArray);
+		
+		var quotePara = document.createElement('p');
+		quotePara.innerHTML = quote;
+		quotePara.style.backgroundColor = colorList[randomNumber];
+		content.appendChild(quotePara);
+	
+		var images =  '<img src="nd/nd' + [randomNumber + 1] + '.jpg" alt="ND">' 
+		var pictures = document.createElement('div');
+		pictures.innerHTML = images;
+		footerImages.appendChild(pictures);
+
+		diseases.splice(randomNumber, 1);
+		symptoms.splice(randomNumber, 1);
+		control.splice(randomNumber, 1);
+		colorList.splice(randomNumber, 1);
+		
+		} else {
+			 alert('Click Ok & refresh the page to start this again!');
+			}
+
+	}
+
+	var newQuote = document.getElementById('newQuote');
+
+	newQuote.addEventListener('click', changeQuote);
+
+</script>
+</body>
+</html>
